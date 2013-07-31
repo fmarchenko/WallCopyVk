@@ -15,7 +15,7 @@ from templates_html import *
 
 from optparse import OptionParser
 RECURSE_TRY = 100
-
+FOLDER_RESULT = "../res/"
 parser = OptionParser()
 parser.add_option("-e", "--email", dest="email",
                   help=" user email", metavar="EMAIL")
@@ -266,18 +266,18 @@ Auth data:
 		name = group_info[0]["name"]
 		print "Auth is success, for ",name
 		try:
-			os.mkdir(name) # make the directory with the name of the publick
+			os.mkdir(FOLDER_RESULT+name) # make the directory with the name of the publick
 
 		except (OSError):
 			print "Directory Exist"
 		ava = "ava.jpg"
 		vk_link = "vk_link.png"
 		vk_audio = "vk_audio.jpg"
-		vk_video = "vk_video.jpg"
-		shutil.copyfile(ava,"%s/%s"%(name,ava))
-		shutil.copyfile(vk_link,"%s/%s"%(name,vk_link))
-		shutil.copyfile(vk_video,"%s/%s"%(name,vk_video))
-		shutil.copyfile(vk_audio,"%s/%s"%(name,vk_audio))
+		vk_video =  "vk_video.jpg"
+		shutil.copyfile(FOLDER_SERVICE+ava,FOLDER_RESULT+"%s/%s"%(name,ava))
+		shutil.copyfile(FOLDER_SERVICE+vk_link,FOLDER_RESULT+"%s/%s"%(name,vk_link))
+		shutil.copyfile(FOLDER_SERVICE+vk_video,FOLDER_RESULT+"%s/%s"%(name,vk_video))
+		shutil.copyfile(FOLDER_SERVICE+vk_audio,FOLDER_RESULT+"%s/%s"%(name,vk_audio))
 		if(options.count == None):
 			temp = get_posts(vk,-int(options.gid),0,1)
 			print "Post count = ",temp[0]
@@ -295,7 +295,7 @@ Auth data:
 		downloaded = 0
 		print posts_by_tom
 		name_tom = "%s_%i.html"%(name,curr_tom)
-		tom_file = open("./%s/%s"%(name,name_tom),'w+') # open first tom file
+		tom_file = open(FOLDER_RESULT+"%s/%s"%(name,name_tom),'w+') # open first tom file
 		tom_file.write(page_begin.encode('utf-8'))
 		while(iteration*step < count):		
 			if(tom_iteration*step>=posts_by_tom):
@@ -303,7 +303,7 @@ Auth data:
 				tom_iteration = 0;
 				curr_tom+=1
 				name_tom = "%s_%i.html"%(name,curr_tom)
-				tom_file = open("./%s/%s"%(name,name_tom),'w+') # open cur tom file
+				tom_file = open(FOLDER_RESULT+"%s/%s"%(name,name_tom),'w+') # open cur tom file
 				tom_file.write(page_begin.encode('utf-8'))			
 			posts = get_posts(vk,-int(options.gid),offset,step)
 			downloaded+=len(posts)-1
@@ -318,15 +318,15 @@ Auth data:
 		if(options.download_all =='1'):
 			for i in range(curr_tom+1):
 				name_cur = "%s_%i.html"%(name,i)
-				long_name = "%s/%s"%(name,name_cur)
+				long_name = FOLDER_RESULT+"%s/%s"%(name,name_cur)
 				folder = "%s_%sdata/"%(name,i)
-				long_folder = "%s/%s"%(name,folder)
+				long_folder = FOLDER_RESULT+"%s/%s"%(name,folder)
 				tom_file =  codecs.open(long_name, "r", "utf-8")
-				converted = "./%s/%s_%s_converted.html"%(name,name,i)
+				converted = FOLDER_RESULT+"%s/%s_%s_converted.html"%(name,name,i)
 				print converted
 				converted = open(converted,'w+')
 				data = tom_file.read()
-				download_media(long_name,"%s/%s"%(name,folder))
+				download_media(long_name,FOLDER_RESULT+"%s/%s"%(name,folder))
 				new_data = convert_links(data,"./%s"%folder)
 				#tom_file.seek(0)
 				converted.write(new_data.encode("utf-8"))

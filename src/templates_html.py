@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-page_begin = open("page_begin.html","r+")
+FOLDER_SERVICE = "../service/"
+page_begin = open(FOLDER_SERVICE+"page_begin.html","r+")
 page_begin = page_begin.read();
 page_begin = page_begin.decode('utf-8')
 
-template_post = open("template_post.html","r+")
+template_post = open(FOLDER_SERVICE+"template_post.html","r+")
 template_post = template_post.read();
 template_post = template_post.decode('utf-8')
 coment_block_template=u'''
@@ -21,11 +21,11 @@ page_end =u'''
 </html>
 '''
 
-photos_template= open("photos_template.html","r+")
+photos_template= open(FOLDER_SERVICE+"photos_template.html","r+")
 photos_template = photos_template.read();
 photos_template = photos_template.decode('utf-8')
 
-audio_block_template= open("audio_block_template.html","r+")
+audio_block_template= open(FOLDER_SERVICE+"audio_block_template.html","r+")
 audio_block_template = audio_block_template.read();
 audio_block_template = audio_block_template.decode('utf-8')
 
@@ -47,7 +47,7 @@ photo_templ=u'''
 						</div>
 '''
 
-comment_template= open("comment_template.html","r+")
+comment_template= open(FOLDER_SERVICE+"comment_template.html","r+")
 comment_template = comment_template.read();
 comment_template = comment_template.decode('utf-8')
 
